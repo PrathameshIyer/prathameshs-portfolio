@@ -1,0 +1,2356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prathamesh Iyer — Content Writer & Strategist. Research-led blogs, website copy, and content strategy for brands and teams.">
+  <meta name="theme-color" content="#0b0b0b">
+  <title>Prathamesh Iyer — Content Writer & Strategist</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg: #f5f1e8;
+      --bg-soft: #ebe6dc;
+      --panel: #fffdf8;
+      --panel-2: #e6e1d6;
+      --ink: #1d1b19;
+      --muted: #6f6a61;
+      --muted-2: #908a80;
+      --line: rgba(29,27,25,.12);
+      --accent: #7058dc;
+      --accent-soft: rgba(112,88,220,.12);
+      --coral: #ff7b61;
+      --yellow: #f5cf58;
+      --mint: #a9dccd;
+      --blue: #6288e5;
+      --pink: #e6a5bc;
+      --navy: #27334c;
+      --max: 1280px;
+      --nav-h: 82px;
+      --radius: 26px;
+      --shadow: 0 22px 70px rgba(40,34,24,.09);
+      --ease: cubic-bezier(.22,1,.36,1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body.is-loading {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .site-noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 80;
+      opacity: .018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    }
+
+    .progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 3px;
+      transform-origin: left center;
+      transform: scaleX(0);
+      background: linear-gradient(90deg,var(--coral),var(--accent),var(--blue));
+      z-index: 100;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: var(--bg);
+      z-index: 120;
+      transition: opacity .7s var(--ease), visibility .7s;
+    }
+
+    .loader.is-done {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-inner {
+      width: min(560px,100%);
+    }
+
+    .loader-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+      font: 500 11px/1 'DM Mono',monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .loader-bar {
+      height: 1px;
+      background: rgba(29,27,25,.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-bar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,var(--coral),var(--accent),var(--yellow));
+      transform: translateX(-100%);
+      animation: load 1.15s var(--ease) forwards;
+    }
+
+    @keyframes load {
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(29,27,25,.28);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 110;
+      opacity: 0;
+      transform: translate(-50%,-50%);
+      transition: width .2s ease,height .2s ease,background .2s ease,border-color .2s ease,opacity .2s ease;
+    }
+
+    .cursor-dot {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--coral);
+      pointer-events: none;
+      z-index: 111;
+      opacity: 0;
+      transform: translate(-50%,-50%);
+    }
+
+    body.cursor-ready .cursor,
+    body.cursor-ready .cursor-dot {
+      opacity: 1;
+    }
+
+    body.cursor-hover .cursor {
+      width: 46px;
+      height: 46px;
+      border-color: var(--accent);
+      background: rgba(112,88,220,.08);
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 70;
+      height: var(--nav-h);
+      padding: 0 4.5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .topbar::before {
+      content: '';
+      position: absolute;
+      left: 4vw;
+      right: 4vw;
+      top: 16px;
+      bottom: 8px;
+      border: 1px solid rgba(29,27,25,.10);
+      border-radius: 999px;
+      background: rgba(255,253,248,.75);
+      box-shadow: 0 12px 30px rgba(40,34,24,.05);
+      backdrop-filter: blur(16px);
+      z-index: -1;
+    }
+
+    .brand,
+    .top-link {
+      pointer-events: auto;
+    }
+
+    .brand {
+      color: var(--ink);
+      font: 600 12px/1 'DM Mono',monospace;
+      letter-spacing: .18em;
+      padding-left: 12px;
+    }
+
+    .brand span {
+      color: var(--coral);
+    }
+
+    .top-link {
+      color: var(--ink);
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: var(--yellow);
+      border: 1px solid rgba(29,27,25,.09);
+      margin-right: 10px;
+      font: 500 11px/1 'DM Mono',monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      transition: transform .25s var(--ease),box-shadow .25s ease;
+    }
+
+    .top-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(245,207,88,.28);
+    }
+
+    .topbar::after {
+      content: 'ABOUT  /  WORK  /  SERVICES  /  CONTACT';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font: 500 9px/1 'DM Mono',monospace;
+      letter-spacing: .08em;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .side-nav {
+      display: none;
+    }
+
+    main {
+      position: relative;
+      padding: 0 1.5vw;
+    }
+
+    section {
+      position: relative;
+      scroll-margin-top: 100px;
+    }
+
+    .container {
+      width: min(1240px,calc(100% - 8vw));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 135px 0 70px;
+      overflow: clip;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: '';
+      width: 48vw;
+      height: 48vw;
+      max-width: 680px;
+      max-height: 680px;
+      position: absolute;
+      right: -9vw;
+      top: 13vh;
+      border-radius: 42% 58% 57% 43% / 45% 44% 56% 55%;
+      background: linear-gradient(145deg,rgba(112,88,220,.92),rgba(98,136,229,.72));
+      filter: saturate(108%);
+      opacity: .95;
+      z-index: -2;
+      animation: morph 12s ease-in-out infinite alternate,drift 7s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      left: 8vw;
+      top: 20vh;
+      border-radius: 50%;
+      background: var(--coral);
+      opacity: .15;
+      z-index: -2;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .35;
+      background-image: radial-gradient(rgba(29,27,25,.10) 1px,transparent 1px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(to right,transparent,black 30%,black 100%);
+    }
+
+    .hero .container {
+      position: relative;
+    }
+
+    .hero-kicker {
+      font: 500 11px/1.4 'DM Mono',monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: rgba(255,253,248,.88);
+      border: 1px solid rgba(29,27,25,.10);
+      border-radius: 999px;
+      width: max-content;
+      padding: 9px 13px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 25px rgba(40,34,24,.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-kicker::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 900px;
+      font-family: 'Space Grotesk',sans-serif;
+      color: var(--ink);
+      font-size: clamp(74px,12.3vw,175px);
+      line-height: .79;
+      letter-spacing: -.075em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .hero h1 .outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--ink);
+      position: relative;
+    }
+
+    .hero h1 .outline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 38%;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--coral);
+      transform: rotate(-2deg);
+    }
+
+    .hero-bottom {
+      max-width: 920px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      margin-top: 44px;
+      padding-left: 4px;
+      align-items: end;
+    }
+
+    .hero-intro {
+      color: var(--ink);
+      font-size: clamp(18px,1.55vw,22px);
+      line-height: 1.35;
+      max-width: 500px;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 28px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255,253,248,.82);
+      border: 1px solid rgba(29,27,25,.10);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-meta .label {
+      display: block;
+      font: 500 9px/1 'DM Mono',monospace;
+      color: var(--muted-2);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .hero-meta .value {
+      font: 500 12px/1.25 'DM Mono',monospace;
+      color: var(--ink);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      right: 4vw;
+      bottom: 40px;
+      color: var(--muted);
+      font: 500 9px/1 'DM Mono',monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      animation: bob 1.8s ease-in-out infinite;
+    }
+
+    @keyframes morph {
+      0% {
+        border-radius: 42% 58% 57% 43% / 45% 44% 56% 55%;
+        transform: rotate(-5deg) scale(1);
+      }
+
+      100% {
+        border-radius: 61% 39% 34% 66% / 52% 41% 59% 48%;
+        transform: rotate(8deg) scale(1.04);
+      }
+    }
+
+    @keyframes drift {
+      50% {
+        translate: 0 14px;
+      }
+    }
+
+    @keyframes bob {
+      50% {
+        transform: translateY(5px);
+      }
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 34px;
+      padding: 0;
+      margin: 0 0 46px;
+      border-top: 0;
+    }
+
+    .eyebrow {
+      width: max-content;
+      padding: 8px 11px;
+      color: var(--ink);
+      background: var(--yellow);
+      border-radius: 999px;
+      font: 500 9px/1.4 'DM Mono',monospace;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      max-width: 870px;
+      font-size: clamp(48px,6vw,86px);
+      line-height: .95;
+      letter-spacing: -.055em;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .section-head p {
+      margin: 24px 0 0;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .about,
+    .work,
+    .expertise,
+    .services,
+    .testimonials {
+      padding: 90px 0;
+    }
+
+    .about-body {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .about-copy {
+      background: var(--navy);
+      color: #fffaf2;
+      border-radius: var(--radius);
+      padding: 44px;
+      font-size: clamp(28px,3.1vw,43px);
+      line-height: 1.08;
+      letter-spacing: -.035em;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-copy::after {
+      content: 'WORDS';
+      position: absolute;
+      right: -4px;
+      bottom: -20px;
+      font-size: 11vw;
+      line-height: .8;
+      font-weight: 700;
+      color: rgba(255,255,255,.045);
+      letter-spacing: -.08em;
+    }
+
+    .about-copy strong {
+      color: var(--yellow);
+      font-weight: 500;
+    }
+
+    .about-copy .soft {
+      color: rgba(255,250,242,.72);
+    }
+
+    .about-aside {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-aside p {
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    .about-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 30px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: var(--bg);
+      color: var(--ink);
+      font: 500 10px/1 'DM Mono',monospace;
+      transition: border-color .25s ease,color .25s ease,background .25s ease,transform .25s ease;
+    }
+
+    .pill:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-3px) rotate(-1deg);
+    }
+
+    .project-list {
+      border: 0;
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      min-height: 415px;
+      padding: 28px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(29,27,25,.07);
+      transition: transform .4s var(--ease),box-shadow .4s ease;
+      isolation: isolate;
+      position: relative;
+    }
+
+    .project::after {
+      content: '';
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      right: -55px;
+      top: -55px;
+      background: rgba(255,255,255,.23);
+      transform: scale(.9);
+      z-index: -1;
+      transition: transform .45s var(--ease);
+    }
+
+    .project:hover {
+      transform: translateY(-8px) rotate(-.4deg);
+      box-shadow: 0 30px 80px rgba(40,34,24,.14);
+    }
+
+    .project:hover::after {
+      transform: scale(1.25);
+    }
+
+    .project:nth-child(1) {
+      background: var(--yellow);
+    }
+
+    .project:nth-child(2) {
+      background: var(--mint);
+    }
+
+    .project:nth-child(3) {
+      background: var(--pink);
+    }
+
+    .project:nth-child(4) {
+      background: var(--blue);
+    }
+
+    .project-num {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.58);
+      color: var(--ink);
+      font: 500 11px/1 'DM Mono',monospace;
+    }
+
+    .project-main {
+      margin-top: auto;
+    }
+
+    .project-main h3 {
+      margin: 0 0 13px;
+      color: var(--ink);
+      font-size: clamp(30px,3.2vw,50px);
+      line-height: .98;
+      letter-spacing: -.04em;
+      font-weight: 500;
+    }
+
+    .project-main .type {
+      color: rgba(29,27,25,.60);
+      font: 500 9px/1.2 'DM Mono',monospace;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .project-desc {
+      color: rgba(29,27,25,.78);
+      max-width: 560px;
+    }
+
+    .project-foot {
+      align-self: stretch;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .project-tag {
+      padding: 7px 9px;
+      border: 1px solid rgba(29,27,25,.13);
+      border-radius: 999px;
+      color: var(--ink);
+      background: rgba(255,255,255,.34);
+      font: 500 9px/1 'DM Mono',monospace;
+      white-space: nowrap;
+    }
+
+    .project-link {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(29,27,25,.12);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: rgba(255,255,255,.55);
+      color: var(--ink);
+      transition: background .25s ease,border-color .25s ease,transform .25s ease;
+    }
+
+    .project-link:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+      transform: rotate(8deg) scale(1.08);
+    }
+
+    .stack-line {
+      margin-top: 18px;
+      padding: 20px 4px 0;
+      color: var(--muted);
+      font: 500 10px/1.9 'DM Mono',monospace;
+    }
+
+    .stack-line span {
+      color: var(--ink);
+    }
+
+    .skills-layout {
+      background: transparent;
+      border: 0;
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .skill-card {
+      min-height: 330px;
+      padding: 34px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      transition: transform .35s var(--ease),box-shadow .35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card:nth-child(1) {
+      background: #e8defd;
+    }
+
+    .skill-card:nth-child(2) {
+      background: #dcecf9;
+    }
+
+    .skill-card:nth-child(3) {
+      background: #ffe6d9;
+    }
+
+    .skill-card:nth-child(4) {
+      background: #e2f2df;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-6px) rotate(-.4deg);
+      box-shadow: 0 28px 70px rgba(40,34,24,.13);
+    }
+
+    .skill-icon {
+      color: var(--ink);
+      font-size: 26px;
+      margin-bottom: 45px;
+    }
+
+    .skill-card h3 {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: 33px;
+      line-height: 1;
+      letter-spacing: -.04em;
+      font-weight: 500;
+    }
+
+    .skill-card p {
+      color: var(--muted);
+      max-width: 460px;
+    }
+
+    .skill-list {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 7px 20px;
+    }
+
+    .skill-list span {
+      font: 500 10px/1.25 'DM Mono',monospace;
+      color: rgba(29,27,25,.58);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .skill-card::before {
+      content: attr(data-no);
+      position: absolute;
+      right: 24px;
+      bottom: 10px;
+      font-size: 120px;
+      line-height: 1;
+      font-weight: 700;
+      color: rgba(29,27,25,.05);
+    }
+
+    .services-list {
+      border: 0;
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .service {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 18px;
+      min-height: 260px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform .35s var(--ease),box-shadow .35s ease;
+    }
+
+    .service:nth-child(1) {
+      background: #fff1b9;
+    }
+
+    .service:nth-child(2) {
+      background: #dff1ea;
+    }
+
+    .service:nth-child(3) {
+      background: #e8defa;
+    }
+
+    .service:nth-child(4) {
+      background: #f8d8e3;
+    }
+
+    .service:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 70px rgba(40,34,24,.13);
+    }
+
+    .service-no {
+      color: var(--ink);
+      font: 500 11px/1 'DM Mono',monospace;
+    }
+
+    .service h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(29px,4vw,50px);
+      line-height: .98;
+      letter-spacing: -.04em;
+      font-weight: 500;
+    }
+
+    .service-copy {
+      grid-column: 2;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .service-copy strong {
+      display: inline-block;
+      color: var(--ink);
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 18px;
+    }
+
+    .testimonial {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      min-height: 350px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .35s var(--ease),box-shadow .35s ease;
+    }
+
+    .testimonial:first-child {
+      background: var(--navy);
+      color: #fffaf2;
+    }
+
+    .testimonial:first-child .quote,
+    .testimonial:first-child .testimonial-name {
+      color: #fffaf2;
+    }
+
+    .testimonial:first-child .testimonial-role,
+    .testimonial:first-child .testimonial-note {
+      color: rgba(255,250,242,.58);
+    }
+
+    .testimonial:hover {
+      transform: translateY(-6px) rotate(.3deg);
+      box-shadow: 0 28px 80px rgba(40,34,24,.14);
+    }
+
+    .quote-mark {
+      color: var(--coral);
+      font: 600 56px/.75 Georgia,serif;
+    }
+
+    .quote {
+      margin: 18px 0 34px;
+      color: var(--ink);
+      font-size: clamp(19px,2vw,25px);
+      line-height: 1.25;
+      letter-spacing: -.02em;
+    }
+
+    .testimonial-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-top: auto;
+    }
+
+    .testimonial-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .testimonial-role {
+      margin-top: 3px;
+      color: var(--muted-2);
+      font: 500 9px/1.3 'DM Mono',monospace;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    .testimonial-note {
+      color: var(--muted-2);
+      font: 500 9px/1 'DM Mono',monospace;
+    }
+
+    .contact {
+      padding: 90px 0 30px;
+    }
+
+    .contact-wrap {
+      padding: 54px;
+      border-radius: 34px;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .contact-wrap::before {
+      content: '';
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      right: -110px;
+      top: -110px;
+      background: rgba(255,255,255,.12);
+    }
+
+    .contact-wrap .eyebrow {
+      background: var(--yellow);
+    }
+
+    .contact-title {
+      color: #fff;
+      font-size: clamp(74px,12vw,165px);
+      line-height: .8;
+      letter-spacing: -.07em;
+      font-weight: 600;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .contact-title .accent {
+      color: var(--yellow);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: end;
+      margin-top: 75px;
+    }
+
+    .contact-copy {
+      max-width: 580px;
+      color: rgba(255,255,255,.72);
+      font-size: 18px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      border: 1px solid rgba(255,255,255,.26);
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      color: #fff;
+      font: 500 10px/1 'DM Mono',monospace;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      transition: background .25s ease,border-color .25s ease,color .25s ease,transform .25s ease;
+    }
+
+    .cta.primary {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--ink);
+    }
+
+    .cta:hover {
+      transform: translateY(-4px);
+    }
+
+    .contact-email {
+      display: inline-block;
+      margin-top: 35px;
+      color: #fff;
+      font-size: clamp(24px,3vw,40px);
+      letter-spacing: -.04em;
+    }
+
+    .contact-email:hover {
+      color: var(--yellow);
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,.18);
+      margin-top: 60px;
+      padding: 24px 0 34px;
+      color: rgba(255,255,255,.58);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font: 500 9px/1.3 'DM Mono',monospace;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    footer a:hover {
+      color: var(--yellow);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px) scale(.985);
+      transition: opacity .75s var(--ease),transform .75s var(--ease);
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .project:nth-child(2),
+    .skill-card:nth-child(2),
+    .service:nth-child(2),
+    .testimonial:nth-child(2) {
+      transition-delay: .06s;
+    }
+
+    .project:nth-child(3),
+    .skill-card:nth-child(3),
+    .service:nth-child(3) {
+      transition-delay: .1s;
+    }
+
+    .project:nth-child(4),
+    .skill-card:nth-child(4),
+    .service:nth-child(4) {
+      transition-delay: .14s;
+    }
+
+    @media (max-width: 900px) {
+      .topbar::after {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .hero::before {
+        width: 60vw;
+        height: 60vw;
+        right: -20vw;
+        top: 20vh;
+      }
+
+      .hero-bottom,
+      .about-body,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-list,
+      .skills-layout,
+      .services-list,
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-actions {
+        justify-content: flex-start;
+      }
+
+      .service {
+        grid-template-columns: 44px 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .topbar {
+        height: 72px;
+        padding: 0 18px;
+      }
+
+      .topbar::before {
+        left: 12px;
+        right: 12px;
+        top: 12px;
+        bottom: 6px;
+      }
+
+      .top-link {
+        margin-right: 4px;
+      }
+
+      main {
+        padding: 0;
+      }
+
+      .container {
+        width: min(var(--max),calc(100% - 28px));
+      }
+
+      .hero {
+        min-height: 92svh;
+        padding: 112px 0 48px;
+      }
+
+      .hero h1 {
+        font-size: clamp(66px,20vw,126px);
+      }
+
+      .hero h1 .outline::after {
+        height: 7px;
+        bottom: -4px;
+      }
+
+      .hero::before {
+        width: 88vw;
+        height: 88vw;
+        right: -42vw;
+        top: 27vh;
+      }
+
+      .hero-bottom {
+        gap: 30px;
+      }
+
+      .hero-meta {
+        width: 100%;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .section-head h2 {
+        font-size: 52px;
+      }
+
+      .about,
+      .work,
+      .expertise,
+      .services,
+      .testimonials,
+      .contact {
+        padding: 54px 0;
+      }
+
+      .about-copy,
+      .about-aside,
+      .project,
+      .skill-card,
+      .service,
+      .testimonial {
+        border-radius: 22px;
+      }
+
+      .about-copy {
+        padding: 30px;
+      }
+
+      .project {
+        min-height: 370px;
+        padding: 24px;
+      }
+
+      .project-main h3 {
+        font-size: 34px;
+      }
+
+      .service {
+        min-height: 230px;
+        padding: 24px;
+      }
+
+      .contact-wrap {
+        padding: 30px 24px;
+        border-radius: 24px;
+      }
+
+      .contact-title {
+        font-size: 75px;
+      }
+
+      .contact-grid {
+        margin-top: 52px;
+      }
+
+      .contact-email {
+        overflow-wrap: anywhere;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 60px;
+      }
+
+      .scroll-cue,
+      .cursor,
+      .cursor-dot {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="is-loading">
+
+  <div class="site-noise" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"></div>
+
+  <div class="loader" id="loader" aria-label="Loading portfolio">
+    <div class="loader-inner">
+      <div class="loader-row">
+        <span>Initializing Experience</span>
+        <span id="loadPct">0%</span>
+      </div>
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand magnetic" href="#top" aria-label="Prathamesh Iyer home">
+      PRIYER<span>.</span>
+    </a>
+
+    <a class="top-link magnetic" href="#contact">
+      Available for work ↗
+    </a>
+  </header>
+
+  <main id="top">
+
+    <section class="hero section-observe" data-section="top" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="container">
+
+        <div class="hero-kicker reveal">
+          Content Writer & Strategist
+        </div>
+
+        <h1 id="hero-title" class="reveal">
+          PRATHAMESH<br>
+          <span class="outline">IYER</span>
+        </h1>
+
+        <div class="hero-bottom reveal">
+
+          <p class="hero-intro">
+            I turn research, ideas and messy information into writing people can actually understand, remember and use.
+          </p>
+
+          <div class="hero-meta">
+
+            <div>
+              <span class="label">Focus</span>
+              <span class="value">Blogs · Web Copy · Strategy</span>
+            </div>
+
+            <div>
+              <span class="label">Base</span>
+              <span class="value">India · Remote</span>
+            </div>
+
+            <div>
+              <span class="label">Portfolio</span>
+              <span class="value">Selected Work ↓</span>
+            </div>
+
+            <div>
+              <span class="label">Contact</span>
+              <span class="value">flowingdesk@gmail.com</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-cue">
+        Scroll to explore
+      </div>
+    </section>
+
+
+    <section class="about section-observe" id="about" data-section="about">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            01 About Me
+          </div>
+
+          <div>
+            <h2>
+              Built to make<br>
+              ideas clearer.
+            </h2>
+
+            <p>
+              Research first. Clean writing second. Strategy throughout.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="about-body">
+
+          <div class="about-copy reveal">
+
+            <strong>
+              I’m Prathamesh, a content writer and strategist.
+            </strong>
+
+            <span class="soft">
+              I write blogs, website copy and brand content that make complicated subjects easier to follow without sanding off what makes them interesting.
+            </span>
+
+            <br><br>
+
+            <span class="soft">
+              My work spans e-commerce, education, fintech, technology and business. I care about good research, a clear point of view and writing that sounds like a person, not a content machine.
+            </span>
+
+          </div>
+
+
+          <aside class="about-aside reveal">
+
+            <p>
+              My sweet spot is the space between strategy and the sentence itself: figuring out what the reader needs, what the brand should say, and how to say it without overcomplicating things.
+            </p>
+
+            <p>
+              I also work on website copy and content direction when the words need to do more than simply fill a page.
+            </p>
+
+            <div class="about-links">
+
+              <a
+                class="pill magnetic"
+                href="https://drive.google.com/drive/folders/1Z0578ro8foJEU_5i43dvatiW4Zxjgeor"
+                target="_blank"
+                rel="noopener"
+              >
+                Full Portfolio ↗
+              </a>
+
+              <a
+                class="pill magnetic"
+                href="https://calendly.com/flowingdesk/30min"
+                target="_blank"
+                rel="noopener"
+              >
+                Book a 30-min Call ↗
+              </a>
+
+              <a
+                class="pill magnetic"
+                href="mailto:flowingdesk@gmail.com"
+              >
+                Email Me ↗
+              </a>
+
+            </div>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="work section-observe" id="work" data-section="work">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            02 Selected Work
+          </div>
+
+          <div>
+
+            <h2>
+              Projects that<br>
+              say something.
+            </h2>
+
+            <p>
+              A mix of long-form research, educational content, editorial writing and website copy.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="project-list">
+
+
+          <article class="project reveal">
+
+            <div class="project-num">
+              01
+            </div>
+
+            <div class="project-main">
+
+              <div class="type">
+                eCommerce · Long-form
+              </div>
+
+              <h3>
+                Best eCommerce Platform for Small Business
+              </h3>
+
+              <p class="project-desc">
+                A detailed comparison guide covering 17 eCommerce platforms, their use cases, pricing, payment options and trade-offs for small businesses.
+              </p>
+
+            </div>
+
+            <div class="project-foot">
+
+              <div class="tag-row">
+                <span class="project-tag">Research</span>
+                <span class="project-tag">SEO Content</span>
+                <span class="project-tag">Long-form</span>
+              </div>
+
+              <a
+                class="project-link magnetic"
+                href="https://aureatelabs.com/guide/build-ecommerce-website-from-scratch/best-ecommerce-platform-for-small-business/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Open eCommerce article"
+              >
+                ↗
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="project reveal">
+
+            <div class="project-num">
+              02
+            </div>
+
+            <div class="project-main">
+
+              <div class="type">
+                Education · Blog
+              </div>
+
+              <h3>
+                15 Fun & Engaging SEL Activities
+              </h3>
+
+              <p class="project-desc">
+                A practical, parent- and educator-friendly article explaining social and emotional learning through 15 activities for preschool and kindergarten.
+              </p>
+
+            </div>
+
+            <div class="project-foot">
+
+              <div class="tag-row">
+                <span class="project-tag">Research</span>
+                <span class="project-tag">Education</span>
+                <span class="project-tag">SEO</span>
+              </div>
+
+              <a
+                class="project-link magnetic"
+                href="https://classmonitor.com/blog/social-emotional-activities-for-preschool-and-kindergarten"
+                target="_blank"
+                rel="noopener"
+                aria-label="Open SEL article"
+              >
+                ↗
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="project reveal">
+
+            <div class="project-num">
+              03
+            </div>
+
+            <div class="project-main">
+
+              <div class="type">
+                Technology · Editorial
+              </div>
+
+              <h3>
+                Breaking Free from Data Traps
+              </h3>
+
+              <p class="project-desc">
+                An editorial piece on data overconsumption, privacy, digital lending and practical ways users can regain more control of their online data.
+              </p>
+
+            </div>
+
+            <div class="project-foot">
+
+              <div class="tag-row">
+                <span class="project-tag">Editorial</span>
+                <span class="project-tag">Fintech</span>
+                <span class="project-tag">Research</span>
+              </div>
+
+              <a
+                class="project-link magnetic"
+                href="https://www.financialexpress.com/money/breaking-free-from-data-traps-how-users-can-regain-control-2640955/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Open Financial Express article"
+              >
+                ↗
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="project reveal">
+
+            <div class="project-num">
+              04
+            </div>
+
+            <div class="project-main">
+
+              <div class="type">
+                Website · Copywriting
+              </div>
+
+              <h3>
+                Nexgits Website Copy
+              </h3>
+
+              <p class="project-desc">
+                Website copy for an AI and technology company, written to make technical services easier to understand while keeping the brand direct and business-focused.
+              </p>
+
+            </div>
+
+            <div class="project-foot">
+
+              <div class="tag-row">
+                <span class="project-tag">Website Copy</span>
+                <span class="project-tag">B2B</span>
+                <span class="project-tag">Messaging</span>
+              </div>
+
+              <a
+                class="project-link magnetic"
+                href="https://nexgits.com/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Open Nexgits website"
+              >
+                ↗
+              </a>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <div class="stack-line reveal">
+          <span>Also in the mix:</span>
+          content strategy · website messaging · blog editing · content direction · brand voice · research · conversion-minded copy
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="expertise section-observe" id="expertise" data-section="expertise">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            03 Expertise
+          </div>
+
+          <div>
+
+            <h2>
+              The craft<br>
+              behind the copy.
+            </h2>
+
+            <p>
+              Different formats, same goal: make the message land.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="skills-layout">
+
+
+          <article class="skill-card reveal" data-no="01">
+
+            <div class="skill-icon">
+              ✦
+            </div>
+
+            <h3>
+              Content Strategy
+            </h3>
+
+            <p>
+              Turn a broad topic, business goal or audience problem into a practical content direction.
+            </p>
+
+            <div class="skill-list">
+              <span>Topic Mapping</span>
+              <span>Content Planning</span>
+              <span>Audience Research</span>
+              <span>Editorial Direction</span>
+            </div>
+
+          </article>
+
+
+          <article class="skill-card reveal" data-no="02">
+
+            <div class="skill-icon">
+              ⌁
+            </div>
+
+            <h3>
+              Long-form Writing
+            </h3>
+
+            <p>
+              Research-heavy articles that stay readable, structured and useful from the first line to the last.
+            </p>
+
+            <div class="skill-list">
+              <span>Blog Writing</span>
+              <span>SEO Content</span>
+              <span>Thought Pieces</span>
+              <span>Explainers</span>
+            </div>
+
+          </article>
+
+
+          <article class="skill-card reveal" data-no="03">
+
+            <div class="skill-icon">
+              ↗
+            </div>
+
+            <h3>
+              Website Copy
+            </h3>
+
+            <p>
+              Clear, customer-facing messaging for websites that need to explain a product before asking someone to buy it.
+            </p>
+
+            <div class="skill-list">
+              <span>Homepage Copy</span>
+              <span>Service Pages</span>
+              <span>Brand Messaging</span>
+              <span>CTAs</span>
+            </div>
+
+          </article>
+
+
+          <article class="skill-card reveal" data-no="04">
+
+            <div class="skill-icon">
+              ◎
+            </div>
+
+            <h3>
+              Research & Editing
+            </h3>
+
+            <p>
+              Dig into the subject, make sense of it, then tighten the writing until every section earns its space.
+            </p>
+
+            <div class="skill-list">
+              <span>Source Research</span>
+              <span>Fact Checking</span>
+              <span>Editing</span>
+              <span>Clarity Passes</span>
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="services section-observe" id="services" data-section="services">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            04 What I Do
+          </div>
+
+          <div>
+
+            <h2>
+              Writing with<br>
+              a job to do.
+            </h2>
+
+            <p>
+              Good content is useful before it is impressive.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="services-list">
+
+
+          <article class="service reveal">
+
+            <div class="service-no">
+              01
+            </div>
+
+            <h3>
+              Blog & SEO Content
+            </h3>
+
+            <div class="service-copy">
+              <strong>Research → Structure → Draft</strong>
+              <br>
+              Useful, search-friendly articles built around the reader's question instead of a pile of keywords.
+            </div>
+
+          </article>
+
+
+          <article class="service reveal">
+
+            <div class="service-no">
+              02
+            </div>
+
+            <h3>
+              Website Copy
+            </h3>
+
+            <div class="service-copy">
+              <strong>Positioning → Messaging → Conversion</strong>
+              <br>
+              Clear copy for homepages, service pages and product-led websites that need to explain what they do fast.
+            </div>
+
+          </article>
+
+
+          <article class="service reveal">
+
+            <div class="service-no">
+              03
+            </div>
+
+            <h3>
+              Content Strategy
+            </h3>
+
+            <div class="service-copy">
+              <strong>Audience → Topics → Direction</strong>
+              <br>
+              A practical content plan when the team knows it should publish more, but does not want to publish random stuff.
+            </div>
+
+          </article>
+
+
+          <article class="service reveal">
+
+            <div class="service-no">
+              04
+            </div>
+
+            <h3>
+              Editing & Direction
+            </h3>
+
+            <div class="service-copy">
+              <strong>Clarity → Voice → Polish</strong>
+              <br>
+              Take an existing draft and make it tighter, clearer and more consistent without stripping out the writer's voice.
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="testimonials section-observe" id="testimonials" data-section="testimonials">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            05 Happy Clients
+          </div>
+
+          <div>
+
+            <h2>
+              Nice words from<br>
+              people I’ve worked with.
+            </h2>
+
+            <p>
+              Feedback from real client and collaborator work.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="testimonial-grid">
+
+
+          <article class="testimonial reveal">
+
+            <div>
+
+              <div class="quote-mark">
+                “
+              </div>
+
+              <p class="quote">
+                Prathamesh has written exclusive blog contents for the website of our company. He has fulfilled our desired checklist by adding keywords and providing well researched data. His humble and polite spoken words always makes a comfortable zone for the discussion of every detail frankly. I lead his work on the website directly by editting some stuffs of company's personal information. He works spokes about his quality and determination. I would definitely recommend him for his promising job.
+              </p>
+
+            </div>
+
+            <div class="testimonial-meta">
+
+              <div>
+                <div class="testimonial-name">
+                  Bhavana Watti
+                </div>
+
+                <div class="testimonial-role">
+                  Branding strategies for creators, coaches and founders
+                </div>
+              </div>
+
+              <div class="testimonial-note">
+                01 / 02
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="testimonial reveal">
+
+            <div>
+
+              <div class="quote-mark">
+                “
+              </div>
+
+              <p class="quote">
+                Prathamesh is a great and efficient writer who adheres to deadlines. He is a versatile writer who does adequate research on every subject before writing. So far, I have had a good experience working with him.
+              </p>
+
+            </div>
+
+            <div class="testimonial-meta">
+
+              <div>
+
+                <div class="testimonial-name">
+                  Aashna Arora
+                </div>
+
+                <div class="testimonial-role">
+                  Content Specialist at AlgoScale
+                </div>
+
+              </div>
+
+              <div class="testimonial-note">
+                02 / 02
+              </div>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="contact section-observe" id="contact" data-section="contact">
+
+      <div class="container">
+
+        <div class="contact-wrap">
+
+          <div class="eyebrow reveal">
+            06 Get In Touch
+          </div>
+
+          <h2 class="contact-title reveal">
+            Let’s<br>
+            <span class="accent">write.</span>
+          </h2>
+
+
+          <div class="contact-grid">
+
+            <div class="contact-copy reveal">
+              Have a blog series, website, brand story or messy draft that needs a sharper point of view? Tell me what you are working on.
+            </div>
+
+
+            <div class="contact-actions reveal">
+
+              <a
+                class="cta primary magnetic"
+                href="https://calendly.com/flowingdesk/30min"
+                target="_blank"
+                rel="noopener"
+              >
+                Book a 30-min call ↗
+              </a>
+
+              <a
+                class="cta magnetic"
+                href="mailto:flowingdesk@gmail.com"
+              >
+                Send an email ↗
+              </a>
+
+              <a
+                class="cta magnetic"
+                href="https://drive.google.com/drive/folders/1Z0578ro8foJEU_5i43dvatiW4Zxjgeor"
+                target="_blank"
+                rel="noopener"
+              >
+                View full portfolio ↗
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <a
+            class="contact-email reveal"
+            href="mailto:flowingdesk@gmail.com"
+          >
+            flowingdesk@gmail.com
+          </a>
+
+
+          <footer>
+
+            <span>
+              © <span id="year"></span> Prathamesh Iyer. All rights reserved.
+            </span>
+
+            <span>
+              <a href="#top">
+                Back to top ↑
+              </a>
+            </span>
+
+          </footer>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    (() => {
+
+      const body = document.body;
+      const loader = document.getElementById('loader');
+      const loadPct = document.getElementById('loadPct');
+      const progress = document.querySelector('.progress');
+
+      const reduced =
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+      let pct = 0;
+
+      const loaderTimer = setInterval(() => {
+
+        pct += pct < 72 ? 6 : pct < 92 ? 3 : 2;
+
+        pct = Math.min(100,pct);
+
+        loadPct.textContent = pct + '%';
+
+
+        if (pct >= 100) {
+
+          clearInterval(loaderTimer);
+
+          window.setTimeout(() => {
+
+            loader.classList.add('is-done');
+            body.classList.remove('is-loading');
+
+            document
+              .querySelectorAll('.hero .reveal')
+              .forEach((el,i) => {
+
+                setTimeout(() => {
+                  el.classList.add('in-view');
+                },90 * i);
+
+              });
+
+          },240);
+
+        }
+
+      },55);
+
+
+      document.getElementById('year').textContent =
+        new Date().getFullYear();
+
+
+      const updateProgress = () => {
+
+        const doc = document.documentElement;
+
+        const max =
+          doc.scrollHeight - doc.clientHeight;
+
+        progress.style.transform =
+          `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+
+      };
+
+
+      window.addEventListener(
+        'scroll',
+        updateProgress,
+        { passive: true }
+      );
+
+      updateProgress();
+
+
+      const revealObserver =
+        new IntersectionObserver((entries) => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add('in-view');
+
+              revealObserver.unobserve(entry.target);
+
+            }
+
+          });
+
+        },{
+          threshold:.12,
+          rootMargin:'0px 0px -40px 0px'
+        });
+
+
+      document
+        .querySelectorAll('.reveal')
+        .forEach(el => revealObserver.observe(el));
+
+
+      if (
+        !reduced &&
+        window.matchMedia('(pointer: fine)').matches
+      ) {
+
+        body.classList.add('cursor-ready');
+
+        const cursor =
+          document.querySelector('.cursor');
+
+        const dot =
+          document.querySelector('.cursor-dot');
+
+        let x = innerWidth / 2;
+        let y = innerHeight / 2;
+
+        let tx = x;
+        let ty = y;
+
+
+        window.addEventListener(
+          'pointermove',
+          e => {
+
+            tx = e.clientX;
+            ty = e.clientY;
+
+          }
+        );
+
+
+        const loop = () => {
+
+          x += (tx - x) * .18;
+          y += (ty - y) * .18;
+
+          cursor.style.left = x + 'px';
+          cursor.style.top = y + 'px';
+
+          dot.style.left = tx + 'px';
+          dot.style.top = ty + 'px';
+
+          requestAnimationFrame(loop);
+
+        };
+
+
+        loop();
+
+
+        document
+          .querySelectorAll(
+            'a,button,.project,.skill-card,.testimonial,.pill'
+          )
+          .forEach(el => {
+
+            el.addEventListener(
+              'mouseenter',
+              () => body.classList.add('cursor-hover')
+            );
+
+            el.addEventListener(
+              'mouseleave',
+              () => body.classList.remove('cursor-hover')
+            );
+
+          });
+
+      }
+
+
+      if (
+        !reduced &&
+        window.matchMedia('(pointer: fine)').matches
+      ) {
+
+        document
+          .querySelectorAll('.magnetic')
+          .forEach(el => {
+
+            el.addEventListener(
+              'pointermove',
+              e => {
+
+                const r =
+                  el.getBoundingClientRect();
+
+                const dx =
+                  (e.clientX - (r.left + r.width / 2)) * .10;
+
+                const dy =
+                  (e.clientY - (r.top + r.height / 2)) * .10;
+
+                el.style.transform =
+                  `translate(${dx}px,${dy}px)`;
+
+              }
+            );
+
+
+            el.addEventListener(
+              'pointerleave',
+              () => {
+                el.style.transform = '';
+              }
+            );
+
+          });
+
+      }
+
+    })();
+
+  </script>
+
+</body>
+</html>
